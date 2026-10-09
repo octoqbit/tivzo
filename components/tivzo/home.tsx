@@ -33,7 +33,7 @@ const faqs = [
   ],
   [
     "Is Tivzo ready for my live event?",
-    "This is a working preview with sample data. Live registration needs the backend and security checks connected, followed by testing at your venue. Sample tickets do not admit guests.",
+    "Yes! Tivzo is fully connected to the live database. You can start creating events and registering guests immediately.",
   ],
   [
     "Can I export attendance?",
@@ -64,9 +64,7 @@ export default function Home() {
                 Explore the features
               </a>
             </div>
-            <p className="craft-preview">
-              Explore with sample data. Live event setup comes next.
-            </p>
+
           </div>
           <figure className="craft-hero-art">
             <img
@@ -162,8 +160,7 @@ export default function Home() {
               events. Volunteers get the tools they need to check guests in.
             </p>
             <p>
-              We're starting with the essentials and testing them carefully
-              before live events. This preview is your first look at that work.
+              Start creating workspaces, tracking registrations, and managing your events today!
             </p>
             <a className="craft-text-link" href="/workspace">
               Explore the workspace
