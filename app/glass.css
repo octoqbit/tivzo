@@ -1,0 +1,287 @@
+/* Shared glass surfaces. Opaque defaults keep unsupported browsers readable. */
+:root {
+  --bg: #edf0f4;
+  --muted: #626874;
+  --glass-panel: #fafbfd;
+  --glass-raised: #ffffff;
+  --glass-inset: #f1f3f6;
+  --glass-border: #ffffffb8;
+  --glass-edge: #1d2b4012;
+  --glass-highlight: #ffffffed;
+  --glass-shadow: 0 8px 24px #1b27340a, inset 0 1px 0 var(--glass-highlight);
+  --glass-blur: 16px;
+  --selection: #f8e5da;
+  --selection-border: #df754b73;
+  --selection-ink: #96380f;
+  --selection-hover: #ed733017;
+  --accent-soft: var(--selection);
+}
+html[data-theme="dark"] {
+  --bg: #101215;
+  --muted: #adb1ba;
+  --glass-panel: #202329;
+  --glass-raised: #282b31;
+  --glass-inset: #181b20;
+  --glass-border: #ffffff1c;
+  --glass-edge: #00000024;
+  --glass-highlight: #ffffff12;
+  --glass-shadow: 0 8px 24px #0000001f, inset 0 1px 0 var(--glass-highlight);
+  --selection: #483024;
+  --selection-border: #fa956563;
+  --selection-ink: #ffb487;
+  --selection-hover: #fb835617;
+  --accent-soft: var(--selection);
+}
+@supports (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  :root {
+    --glass-panel: #ffffff9e;
+    --glass-raised: #ffffffdb;
+    --glass-inset: #ffffff57;
+    --selection: #ed733022;
+  }
+  html[data-theme="dark"] {
+    --glass-panel: #262a329e;
+    --glass-raised: #262a32e8;
+    --glass-inset: #ffffff05;
+    --selection: #fb835626;
+  }
+}
+@media screen {
+  /* Blur is limited to primary surfaces, not every nested control. */
+  :is(
+    .sidebar,
+    .topbar,
+    .stat-grid,
+    .event-card,
+    .panel,
+    .entry-panel,
+    .table-panel,
+    .note-card,
+    .empty-state,
+    .camera-panel,
+    .auth-card,
+    .registration-card,
+    .dialog,
+    .home-hero,
+    .home-nav,
+    .public-header
+  ) {
+    background: var(--glass-panel);
+    border-color: var(--glass-border);
+    box-shadow:
+      var(--glass-shadow),
+      0 0 0 1px var(--glass-edge);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(115%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(115%);
+  }
+  :is(.sidebar, .dialog, .dialog-head, .registration-card) {
+    background: var(--glass-raised);
+  }
+  .dialog::backdrop {
+    background: #0c101c70;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  .dialog-head {
+    border-color: var(--line);
+  }
+  :is(
+    .demo-card,
+    .notice,
+    .search-field,
+    .theme-choices button,
+    .button.secondary,
+    .sample-label,
+    .home-kicker,
+    .table-footer button
+  ) {
+    background: var(--glass-inset);
+    border-color: var(--glass-border);
+    box-shadow:
+      inset 0 1px 0 var(--glass-highlight),
+      0 0 0 1px var(--glass-edge);
+  }
+  :is(input, select, textarea) {
+    background: var(--glass-inset);
+    border-color: var(--line);
+    accent-color: #df6634;
+  }
+  select option {
+    background: var(--surface);
+    color: var(--ink);
+  }
+  :is(input, select, textarea):focus {
+    border-color: var(--selection-border);
+    outline: 2px solid var(--accent);
+    background: var(--selection-hover);
+  }
+  .search-field:focus-within {
+    background: var(--selection-hover);
+    border-color: var(--selection-border);
+  }
+  .search-field input {
+    background: transparent;
+  }
+  th {
+    background: var(--glass-inset);
+  }
+  .filter-tabs {
+    gap: 8px;
+    padding-bottom: 8px;
+  }
+  .filter-tabs button {
+    border-radius: 9px;
+    border-bottom-color: transparent;
+  }
+  :is(
+    .nav-item,
+    .filter-tabs button,
+    .theme-choices button,
+    .icon-button,
+    .button.secondary,
+    .home-workspace-link,
+    .table-footer button
+  ) {
+    transition:
+      background 0.15s ease,
+      color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  :is(
+    .nav-item.selected,
+    .filter-tabs button.active,
+    .theme-choices button.active,
+    button[aria-pressed="true"]:not(.color-swatch)
+  ) {
+    background: var(--selection);
+    color: var(--selection-ink);
+    border-color: var(--selection-border);
+    box-shadow:
+      inset 0 0 0 1px var(--selection-border),
+      inset 0 1px 0 var(--glass-highlight);
+  }
+  .nav-item.selected .nav-count {
+    color: var(--selection-ink);
+    background: var(--selection-hover);
+    border-color: var(--selection-border);
+  }
+  .color-swatch.active {
+    outline-color: var(--accent);
+    outline-offset: 3px;
+  }
+  @media (hover: hover) {
+    :is(
+        .nav-item,
+        .filter-tabs button,
+        .theme-choices button,
+        .icon-button,
+        .button.secondary,
+        .home-workspace-link,
+        .table-footer button
+      ):not(:disabled):hover {
+      background: var(--selection-hover);
+      color: var(--selection-ink);
+    }
+    .event-card:hover {
+      border-color: var(--selection-border);
+      box-shadow:
+        var(--glass-shadow),
+        0 0 0 1px var(--selection-border);
+    }
+  }
+  :is(.button.primary, .home-button) {
+    background: var(--glass-raised);
+    color: var(--ink);
+    border: 1px solid var(--glass-border);
+    box-shadow:
+      var(--glass-shadow),
+      0 0 0 1px var(--glass-edge);
+  }
+  :is(.button.primary, .home-button):not(:disabled):is(:hover, :active),
+  :is(.button.secondary, .icon-button):not(:disabled):active {
+    opacity: 1;
+    background: var(--selection);
+    color: var(--selection-ink);
+    border-color: var(--selection-border);
+    box-shadow:
+      inset 0 0 0 1px var(--selection-border),
+      inset 0 1px 0 var(--glass-highlight);
+  }
+  ::selection {
+    background: var(--selection);
+    color: var(--selection-ink);
+  }
+  .home-nav {
+    min-height: 78px;
+    margin-top: 20px;
+    padding: 0 24px;
+    border: 1px solid var(--glass-border);
+    border-radius: 22px;
+  }
+  .home-workspace-link {
+    padding: 10px 14px;
+    border-radius: 100px;
+  }
+  .home-main {
+    padding: 28px 0;
+  }
+  .home-hero {
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .public-header {
+    padding: 16px 20px;
+    border-radius: 18px;
+  }
+  @media (max-width: 600px) {
+    :root {
+      --glass-blur: 10px;
+    }
+    .home-nav {
+      min-height: 72px;
+      padding: 0 16px;
+      border-radius: 18px;
+      margin-top: 12px;
+    }
+    .home-nav nav {
+      gap: 6px;
+    }
+    .home-workspace-link {
+      padding: 10px 8px;
+    }
+    .home-main {
+      padding: 18px 0;
+    }
+    .home-hero {
+      border-radius: 22px;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+    .home-hero h1 {
+      font-size: clamp(1.75rem, 7.3vw, 2.8rem);
+    }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    :root {
+      --glass-panel: #fafbfd;
+      --glass-raised: #fff;
+      --glass-inset: #f1f3f6;
+      --selection: #f8e5da;
+      --glass-blur: 0px;
+    }
+    html[data-theme="dark"] {
+      --glass-panel: #202329;
+      --glass-raised: #282b31;
+      --glass-inset: #181b20;
+      --selection: #483024;
+    }
+    .dialog::backdrop {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
+}
